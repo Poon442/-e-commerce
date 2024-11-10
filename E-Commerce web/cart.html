@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gadget Genie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .checkout-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4a4a4a; /* White */
+            color: White;
+            border: Black;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background-color: #e68a00; /* Slightly darker yellow */
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="img/Gagdet_Genie-logo.png" height="75" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cart.html"><img src="img/bag.png" class="bag" alt=""></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="page-header">
+        <h2>Gadget Genie</h2>
+        <h1>Making Tech Wishes Come True</h1>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <section id="product-table" class="section-p1">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    <!-- Products will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="cart" class="section-p1">
+            <h2>Cart</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Remove</th>
+                        <th>Product</th>
+                        <th>Specifications</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-list">
+                    <!-- Cart items will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+            <div>
+                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </section>
+
+        <footer class="section-p1">
+            <div class="col">
+                <img src="img/Gadget_Genie-logo.png" alt="">
+                <h4>Contact Us</h4>
+                <p><strong>Address: </strong> Kuala Lumpur, Malaysia.</p>
+                <p><strong>Phone: </strong> 012-345 6789/03-1234 5678</p>
+                <p><strong>Email: </strong> gadget@genie.com</p>
+            </div>
+
+            <div class="colpay">
+                <p>Secured Payment Gateways</p>
+                <img src="img/pay/pay.png" alt="">
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2024 Gadget Genie. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script>
+            const products = [
+                {id: 1, name: 'iPhone 15 Pro', category: 'Smartphone', price: 5000, specs: ['Select Storage', '128 GB', '256GB', '512GB', '1TB']},
+                {id: 2, name: 'Apple Watch SE', category: 'Smartwatch', price: 1100, specs: ['-']},
+                {id: 3, name: 'Samsung Galaxy S24', category: 'Smartphone', price: 4700, specs: ['Select Storage', '128 GB', '256GB', '512GB']},
+                {id: 4, name: 'Asus ROG Strix Scar II', category: 'Laptop', price: 7500, specs: ['Select Variance', 'i7/144hz', 'i9/240hz']},
+                {id: 5, name: 'Xiaomi MiPad 5', category: 'Tablet', price: 850, specs: ['Select Storage', '128 GB', '256GB']},
+                {id: 6, name: 'Samsung Galaxy Watch', category: 'Smartwatch', price: 1200, specs: ['-']},
+                {id: 7, name: 'NZXT', category: 'Custom PC', price: 00000, specs: ['contact us for more info']},
+                {id: 8, name: 'Mi TV P1', category: 'Television', price: 450, specs: ['Select Size', '32', '43', '55']},
+                {id: 9, name: 'iPhone 11', category: 'Smartphone', price: 2000, specs: ['Spec 9A', 'Spec 9B', 'Spec 9C']},
+                {id: 10, name: 'Nokia 3310', category: 'Vintage Phone', price: 60, specs: ['Spec 10A', 'Spec 10B', 'Spec 10C']},
+                {id: 11, name: 'Gigabyte M27Q X', category: 'Monitor', price: 950, specs: ['Spec 11A', 'Spec 11B', 'Spec 11C']},
+                {id: 12, name: 'Nvidia RTX3080', category: 'PC Accessories ', price: 2500, specs: ['Spec 12A', 'Spec 12B', 'Spec 12C']},
+                {id: 13, name: 'Samsung A20', category: 'Smartphone', price: 250, specs: ['Spec 13A', 'Spec 13B', 'Spec 13C']},
+                {id: 14, name: 'Xiaomi Redmi Note 12 5G', category: 'Smartphone', price: 750, specs: ['-']},
+                {id: 15, name: 'HP 15', category: 'Laptop', price: 1500, specs: ['-']}
+            ];
+
+            const productContainer = document.getElementById('product-list');
+            const cartContainer = document.getElementById('cart-list');
+
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td><button onclick="addToCart(${product.id})">Add to Cart</button></td>
+                `;
+                productContainer.appendChild(row);
+            });
+
+            function addToCart(productId) {
+                const product = products.find(p => p.id === productId);
+                const specOptions = product.specs.map(spec => `<option value="${spec}">${spec}</option>`).join('');
+                const cartRow = document.createElement('tr');
+                cartRow.innerHTML = `
+                    <td><a href="#" onclick="removeFromCart(this)"><i class="fas fa-trash-alt"></i></a></td>
+                    <td>${product.name}</td>
+                    <td><select onchange="updateSubtotal(this, ${product.price})">${specOptions}</select></td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td><input type="number" value="1" min="1" onchange="updateSubtotal(this, ${product.price})"></td>
+                    <td>$${product.price.toFixed(2)}</td>
+                `;
+                cartContainer.appendChild(cartRow);
+            }
+
+            function removeFromCart(button) {
+                const row = button.parentElement.parentElement;
+                row.remove();
+            }
+
+            function updateSubtotal(input, price) {
+                const quantity = input.type === 'number' ? input.value : input.parentElement.nextElementSibling.firstChild.value;
+                const subtotalCell = input.parentElement.parentElement.lastElementChild;
+                subtotalCell.textContent = `$${(quantity * price).toFixed(2)}`;
+            }
+
+            function checkout() {
+                alert('Proceeding to checkout');
+                // Add checkout functionality here
+            }
+        </script>
+    </section>
+</body>
+</html>
